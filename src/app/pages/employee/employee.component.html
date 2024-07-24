@@ -1,0 +1,199 @@
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row">
+      <div class="col-12 text-end">
+        <button class="btn btn-primary" (click)="isView = !isView">
+          {{ isView ? "New" : "List" }}
+        </button>
+      </div>
+    </div>
+
+    <div
+      *ngIf="isView"
+      class="row justify-content-center align-items-center h-100"
+    >
+      <div class="col-12">
+        <div class="table-responsive">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm" aria-label="Search" aria-describedby="button-addon1">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon1" (click)="applyFilter()">Search</button>
+          </div>
+          <table class="table table-bordered w-100">
+            <thead>
+              <tr>
+                <th class="text-center align-middle">Sr No</th>
+                <th class="text-center align-middle">Name</th>
+                <th class="text-center align-middle">Department</th>
+                <th class="text-center align-middle">Gender</th>
+                <th class="text-center align-middle">Email</th>
+                <th class="text-center align-middle">Phone Number</th>
+                <th class="text-center align-middle">Action</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let employee of employeeList | search:searchTerm; let i = index">
+              <tr>
+                <td class="text-center align-middle">{{ i + 1 }}</td>
+                <td class="text-center align-middle">
+                  {{employee.firstName +' '+ employee.lastName}}
+                </td>
+                <td class="text-center align-middle">
+                  {{ employee.department }}
+                </td>
+                <td class="text-center align-middle">{{ employee.gender }}</td>
+                <td class="text-center align-middle">{{ employee.email }}</td>
+                <td class="text-center align-middle">{{ employee.phoneNo }}</td>
+                <td class="text-center align-middle"><button class="btn btn-success me-1 " (click)="onEdit(employee)">Edit</button>  <button class="btn btn-danger ml-1" (click)="onDelete(employee)">Delete</button></td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="!isView"
+      class="row justify-content-center align-items-center h-100"
+    >
+
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div
+          class="card shadow-2-strong card-registration"
+          style="border-radius: 15px"
+        >
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div data-mdb-input-init class="form-outline">
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      [(ngModel)]="employeeObj.firstName"
+                      class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="firstName">First Name</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div data-mdb-input-init class="form-outline">
+                    <input
+                      type="text"
+                      name="lastName"
+                      [(ngModel)]="employeeObj.lastName"
+                      id="lastName"
+                      class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="lastName">Last Name</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <label class="form-label">Department</label>
+                  <select class="select form-control-lg w-100" name="department" [(ngModel)]="employeeObj.departmentId">
+                    <option value="" selected>Choose Department</option>
+                    <option
+                      *ngFor="let dep of this.depart"
+                      [value]="dep.departmentId"
+                    >
+                      {{ dep.deptName }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">Gender:</h6>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      [(ngModel)]="employeeObj.gender"
+                      name="gender"
+                      id="femaleGender"
+                      value="female"
+                      checked
+                    />
+                    <label class="form-check-label" for="femaleGender"
+                      >Female</label
+                    >
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="maleGender"
+                      [(ngModel)]="employeeObj.gender"
+                      value="male"
+                    />
+                    <label class="form-check-label" for="maleGender"
+                      >Male</label
+                    >
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      [(ngModel)]="employeeObj.gender"
+                      name="gender"
+                      id="otherGender"
+                      value="other"
+                    />
+                    <label class="form-check-label" for="otherGender"
+                      >Other</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div data-mdb-input-init class="form-outline">
+                    <input
+                      type="email"
+                      name="email"
+                      id="emailAddress"
+                      [(ngModel)]="employeeObj.email"
+                      class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="emailAddress">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div data-mdb-input-init class="form-outline">
+                    <input
+                      type="tel"
+                      id="phoneNumber"
+                      name="phoneNo"
+                      [(ngModel)]="employeeObj.phoneNo"
+                      class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="phoneNumber"
+                      >Phone Number</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-2"  >
+                <input
+                  data-mdb-ripple-init
+                  class="btn btn-primary btn-lg"
+                  type="button"
+                  value="Submit"
+                  disabled="isEditing"
+                  (click)="submit()"
+                />
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

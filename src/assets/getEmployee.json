@@ -1,0 +1,31 @@
+{
+  "data":[
+    {
+      "firstName":"Hari",
+      "lastName":"U",
+      "departmentId":2,
+      "gender":"male",
+      "department":"Admin",
+      "email":"hariu.2504@gmail.com",
+      "phoneNo":6478398276
+    },
+    {
+      "firstName":"Maneesha",
+      "lastName":"Nurac",
+      "departmentId":1,
+      "department":"Sales",
+      "gender":"female",
+      "email":"maneesha@gmail.com",
+      "phoneNo":6478398270
+    },
+    {
+      "firstName":"Fareed",
+      "lastName":"Khan",
+      "departmentId":3,
+      "department":"Market",
+      "gender":"male",
+      "email":"fareed@gmail.com",
+      "phoneNo":6478394091
+    }
+  ]
+}
